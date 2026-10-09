@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Menggunakan gambar dari URL yang diberikan sebagai background dengan efek gelap agar kalkulator tetap kontras */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://raw.githubusercontent.com/redbals359-cyber/awrfgjy/main/images%20(1).jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .calculator {
+            background-color: rgba(34, 37, 45, 0.9); /* Dibuat sedikit transparan agar menyatu dengan background */
+            backdrop-filter: blur(5px);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            width: 320px;
+        }
+
+        .display {
+            width: 100%;
+            height: 80px;
+            background-color: #292d36;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 2rem;
+            text-align: right;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            overflow-x: auto;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #292d36;
+            color: #ffffff;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button:hover {
+            background-color: #3b404a;
+        }
+
+        .btn-operator {
+            background-color: #4b6cb7;
+            color: #ffffff;
+        }
+
+        .btn-operator:hover {
+            background-color: #3a5496;
+        }
+
+        .btn-equal {
+            background-color: #26a69a;
+            color: #ffffff;
+            grid-column: span 2;
+        }
+
+        .btn-equal:hover {
+            background-color: #208b80;
+        }
+
+        .btn-clear {
+            background-color: #ef5350;
+            color: #ffffff;
+        }
+
+        .btn-clear:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" class="display" disabled value="0">
+        <div class="buttons">
+            <button class="btn-clear" onclick="clearDisplay()">C</button>
+            <button onclick="appendValue('(')">(</button>
+            <button onclick="appendValue(')')">)</button>
+            <button class="btn-operator" onclick="appendValue('/')">&divide;</button>
+            
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button class="btn-operator" onclick="appendValue('*')">&times;</button>
+            
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button class="btn-operator" onclick="appendValue('-')">-</button>
+            
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button class="btn-operator" onclick="appendValue('+')">+</button>
+            
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button class="btn-equal" onclick="calculate()">=</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+
+        function appendValue(value) {
+            if (display.value === '0' || display.value === 'Error') {
+                display.value = value;
+            } else {
+                display.value += value;
+            }
+        }
+
+        function clearDisplay() {
+            display.value = '0';
+        }
+
+        function calculate() {
+            try {
+                let expression = display.value.replace(/&times;/g, '*').replace(/&divide;/g, '/');
+                display.value = eval(expression);
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+
+</body>
+</html>
